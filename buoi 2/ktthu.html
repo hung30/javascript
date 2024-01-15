@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function myFunction() {
+        var a = document.getElementById("today").value;
+        var kt;
+        if (a >= 1 && a <= 7) {
+          if (a == 1) {
+            kt = "Chu nhat";
+          } else if (a == 2) {
+            kt = "Thu hai";
+          } else if (a == 3) {
+            kt = "Thu ba";
+          } else if (a == 4) {
+            kt = "Thu tu";
+          } else if (a == 5) {
+            kt = "Thu nam";
+          } else if (a == 6) {
+            kt = "Thu sau";
+          } else {
+            kt = "Thu bay";
+          }
+        } else {
+          kt = "Ban nhap sai vui long nhap lai(1-7)";
+        }
+        document.getElementById("demo").innerHTML = kt;
+      }
+    </script>
+  </head>
+  <body>
+    <div>Today: <input type="number" id="today" /></div>
+    <div><button onclick="myFunction()">try it</button></div>
+    <p>Display: <span id="demo"></span></p>
+  </body>
+</html>
