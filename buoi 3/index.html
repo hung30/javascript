@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        width: 600px;
+        border-spacing: 0;
+        border: 1px solid black;
+      }
+      #tbl tr {
+        height: 27px;
+      }
+      #tbl tr,
+      th,
+      #tbl tr td {
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+      }
+      #tbl tr:last-child td {
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>New Product</h1>
+    <hr />
+    <form name="frm">
+      <p>
+        <label>
+          Product name
+          <input type="text" name="pname" id="pname" />
+        </label>
+        <label>
+          Quantity
+          <input type="text" name="qty" id="qty" />
+        </label>
+        <br />
+        <br />
+        <label>
+          Unit Price
+          <input type="text" name="price" id="price" />
+        </label>
+        <label>
+          Discount
+          <input type="text" name="dc" id="dc" />
+        </label>
+        <br />
+        <br />
+        <button type="button" onclick="sell()">Sell</button>
+        <button type="button" onclick="cancel()">Cancel</button>
+      </p>
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Discount</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <script>
+      var id = 0;
+      var sell = () => {
+        var name = frm.pname.value;
+        var quantity = parseInt(frm.qty.value);
+        var price = parseInt(frm.price.value);
+        var discount = parseInt(frm.dc.value);
+        var subtotal = quantity * price - (1 - discount / 100);
+        console.log(id + " " + subtotal);
+        if (quantity && price && discount) {
+          id++;
+          var row = "<tr>";
+          row += "<td>" + id + "</td>";
+          row += "<td>" + name + "</td>";
+          row += "<td>" + quantity + "</td>";
+          row += "<td>" + price + "</td>";
+          row += "<td>" + discount + "</td>";
+          row += "<td>" + subtotal + "</td>";
+          row += "</tr>";
+          document.getElementById("tbody").innerHTML += row;
+        } else {
+          alert("Nhap sai vui long nhap lai");
+        }
+      };
+      var cancel = () => {
+        var name = (frm.pname.value = "");
+        var quantity = (frm.qty.value = "");
+        var price = (frm.price.value = "");
+        var discount = (frm.dc.value = "");
+      };
+    </script>
+  </body>
+</html>
