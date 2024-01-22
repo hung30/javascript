@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dien Thoai</title>
+    <style>
+      #cart {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+      }
+      .cart-item {
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding: 10px;
+      }
+      .cart-item img {
+        width: 446px;
+        height: auto;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form name="SunShine">
+      <p>
+        <label>
+          Product Name:
+          <input type="text" name="pname" id="pname" />
+        </label>
+        <label>
+          Product Picture:
+          <input type="file" name="pic" id="pic" accept="image/*" />
+        </label>
+        <label>
+          Product price:
+          <input type="number" name="price" id="price" />
+        </label>
+      </p>
+    </form>
+    <button type="button" onclick="add()">Thêm sản phẩm</button>
+    <div>
+      <h2>Điện thoại nổi bật nhất</h2>
+      <ul id="cart"></ul>
+    </div>
+    <script type="text/javascript">
+      function add() {
+        var picture = document.getElementById("pic").files[0];
+        var name = document.getElementById("pname").value;
+        var price = document.getElementById("price").value;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var imgSrc = e.target.result;
+          var cartItem = document.createElement("li");
+          cartItem.className = "cart-item";
+          cartItem.innerHTML = `
+                    <img src='${imgSrc}' alt='Product Image' />
+                    <div>
+                        <p><strong>Product : ${name}</strong></p>
+                        <p>Price: ${price}</p>
+                    </div>
+                    <div>
+                        <button>Đặt mua</button>
+                    </div>
+                `;
+          document.getElementById("cart").appendChild(cartItem);
+        };
+        reader.readAsDataURL(picture);
+      }
+    </script>
+  </body>
+</html>
