@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <script src="./js.bootstrap.min.js"></script>
+    <script src="./js.jquery.min.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body style="background-color: aqua">
+    <h2>Fullname customer :</h2>
+    <input type="text" id="name" /><br />
+    <h2>Id:</h2>
+    <input type="text" id="id" /><br />
+    <h2>Name product:</h2>
+    <input type="text" id="product" /><br />
+    <h2>Quantity product:</h2>
+    <input type="text" id="quantity" /><br />
+    <h2>Price pro:</h2>
+    <input type="text" id="price" /><br /><br />
+
+    <input type="button" value="Save" onclick="save()" />
+    <input type="button" value="Show" onclick="show()" />
+    <input type="button" value="Reset" onclick="reset()" />
+
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>auto increment</th>
+          <th>customer name</th>
+          <th>id</th>
+          <th>product name</th>
+          <th>quantity</th>
+          <th>price</th>
+          <th>total</th>
+        </tr>
+      </thead>
+
+      <tbody id="tbl"></tbody>
+    </table>
+    <script src="./script.js"></script>
+  </body>
+</html>
