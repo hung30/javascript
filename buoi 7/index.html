@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <script src="./js.bootstrap.min.js"></script>
+    <script src="./js.jquery.min.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Create Product</h2>
+      <input type="text" id="productName" placeholder="Product Name" />
+      <input type="text" id="productImage" placeholder="Image URL" />
+      <input type="text" id="productPrice" placeholder="Price" />
+      <input type="text" id="productDiscount" placeholder="Discount" />
+      <select id="productGender">
+        <option value="men">Men</option>
+        <option value="women">Women</option>
+      </select>
+      <br />
+      <input type="button" value="Create Product" onclick="createProduct()" />
+
+      <h2>Products</h2>
+      <input type="button" value="Show Men Products" onclick="show(man)" />
+      <input type="button" value="Show Women Products" onclick="show(women)" />
+
+      <div class="card-container" id="tbl"></div>
+
+      <div id="editForm" style="display: none">
+        <h2>Edit Product</h2>
+        <input type="text" id="editProductName" placeholder="Product Name" />
+        <input type="text" id="editProductImage" placeholder="Image URL" />
+        <input type="text" id="editProductPrice" placeholder="Price" />
+        <input type="text" id="editProductDiscount" placeholder="Discount" />
+        <input type="button" value="Update Product" onclick="updateProduct()" />
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
