@@ -60,8 +60,8 @@ function showFood() {
       i +
       ")' /></td>";
     html += "</tr>";
-    document.getElementById("tbl").innerHTML = html;
   }
+    document.getElementById("tbl").innerHTML = html;
 }
 
 function createFood() {
