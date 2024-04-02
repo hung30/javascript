@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <script src="./js.bootstrap.min.js"></script>
+    <script src="./js.jquery.min.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: pink;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h2 {
+        color: #333;
+      }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        max-width: 600px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #08b8cb;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      input[type="button"] {
+        padding: 10px 20px;
+        background-color: #2a2a2a;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      input[type="button"]:hover {
+        background-color: #213b57;
+      }
+
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .card {
+        width: 30%;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .card img {
+        width: 100%;
+        border-radius: 5px 5px 0 0;
+      }
+
+      .card-body {
+        padding: 15px;
+      }
+
+      .card-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .card-text {
+        margin: 5px 0;
+      }
+
+      .card-buttons button {
+        padding: 5px 10px;
+        background-color: #2a2a2a;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .card-buttons button:hover {
+        background-color: #213b57;
+      }
+
+      /* Additional styles for the edit form */
+      #editForm {
+        margin-top: 20px;
+      }
+
+      #editForm input[type="button"] {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Create Product</h2>
+      <input type="text" id="productName" placeholder="Product Name" />
+      <input type="text" id="productImage" placeholder="Image URL" />
+      <input type="text" id="productPrice" placeholder="Price" />
+      <input type="text" id="productDiscount" placeholder="Discount" />
+      <select id="productGender">
+        <option value="men">Men</option>
+        <option value="women">Women</option>
+      </select>
+      <br />
+      <input type="button" value="Create Product" onclick="createProduct()" />
+
+      <h2>Products</h2>
+      <input
+        type="button"
+        value="Show Men Products"
+        onclick="showProducts('men')"
+      />
+      <input
+        type="button"
+        value="Show Women Products"
+        onclick="showProducts('women')"
+      />
+
+      <div class="card-container" id="tbl"></div>
+
+      <div id="editForm" style="display: none">
+        <h2>Edit Product</h2>
+        <input type="text" id="editProductName" placeholder="Product Name" />
+        <input type="text" id="editProductImage" placeholder="Image URL" />
+        <input type="text" id="editProductPrice" placeholder="Price" />
+        <input type="text" id="editProductDiscount" placeholder="Discount" />
+        <input type="button" value="Update Product" onclick="updateProduct()" />
+      </div>
+    </div>
+
+    <script>
+      var menProducts = JSON.parse(localStorage.getItem("menProducts")) || [];
+      var womenProducts =
+        JSON.parse(localStorage.getItem("womenProducts")) || [];
+
+      function showProducts(gender) {
+        var products = gender === "men" ? menProducts : womenProducts;
+        var html = "";
+        products.forEach(function (product, index) {
+          html += "<div class='card'>";
+          html += "<img src='" + product.image + "' alt='product image'>";
+          html += "<div class='card-body'>";
+          html += "<h5 class='card-title'>" + product.name + "</h5>";
+          html += "<p class='card-text'>Price: " + product.price + "</p>";
+          html += "<p class='card-text'>Discount: " + product.discount + "</p>";
+          html += "<button onclick='editProduct(" + index + ")'>Edit</button>";
+          html +=
+            "<button onclick='deleteProduct(" + index + ")'>Delete</button>";
+          html += "</div></div>";
+        });
+        document.getElementById("tbl").innerHTML = html;
+      }
+
+      function createProduct() {
+        var productName = document.getElementById("productName").value;
+        var productImage = document.getElementById("productImage").value;
+        var productPrice = document.getElementById("productPrice").value;
+        var productDiscount = document.getElementById("productDiscount").value;
+        var productGender = document.getElementById("productGender").value;
+
+        var newProduct = {
+          name: productName,
+          image: productImage,
+          price: productPrice,
+          discount: productDiscount,
+        };
+
+        if (productGender === "men") {
+          menProducts.push(newProduct);
+        } else if (productGender === "women") {
+          womenProducts.push(newProduct);
+        }
+
+        localStorage.setItem("menProducts", JSON.stringify(menProducts));
+        localStorage.setItem("womenProducts", JSON.stringify(womenProducts));
+
+        document.getElementById("productName").value = "";
+        document.getElementById("productImage").value = "";
+        document.getElementById("productPrice").value = "";
+        document.getElementById("productDiscount").value = "";
+        showProducts(productGender);
+      }
+
+      function editProduct(index) {
+        var productToEdit = menProducts.concat(womenProducts)[index];
+        document.getElementById("editProductName").value = productToEdit.name;
+        document.getElementById("editProductImage").value = productToEdit.image;
+        document.getElementById("editProductPrice").value = productToEdit.price;
+        document.getElementById("editProductDiscount").value =
+          productToEdit.discount;
+
+        document.getElementById("editForm").style.display = "block";
+        document.getElementById("editForm").setAttribute("data-index", index);
+      }
+
+      function updateProduct() {
+        var indexToUpdate = document
+          .getElementById("editForm")
+          .getAttribute("data-index");
+        var updatedProduct = {
+          name: document.getElementById("editProductName").value,
+          image: document.getElementById("editProductImage").value,
+          price: document.getElementById("editProductPrice").value,
+          discount: document.getElementById("editProductDiscount").value,
+        };
+
+        var gender = menProducts[indexToUpdate] ? "men" : "women";
+        var productsToUpdate = gender === "men" ? menProducts : womenProducts;
+        productsToUpdate[indexToUpdate] = updatedProduct;
+
+        localStorage.setItem("menProducts", JSON.stringify(menProducts));
+        localStorage.setItem("womenProducts", JSON.stringify(womenProducts));
+
+        document.getElementById("editForm").style.display = "none";
+        showProducts(gender);
+      }
+
+      function deleteProduct(index) {
+        var gender = menProducts[index] ? "men" : "women";
+        var productsToDelete = gender === "men" ? menProducts : womenProducts;
+        productsToDelete.splice(index, 1);
+
+        localStorage.setItem("menProducts", JSON.stringify(menProducts));
+        localStorage.setItem("womenProducts", JSON.stringify(womenProducts));
+
+        showProducts(gender);
+      }
+
+      window.onload = function () {
+        showProducts("men");
+      };
+    </script>
+  </body>
+</html>
